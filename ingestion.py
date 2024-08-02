@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
 load_dotenv()
-
+from langchain.document_loaders import NotionDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import ReadTheDocsLoader
 from langchain_openai import OpenAIEmbeddings
@@ -13,7 +13,9 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 
 def ingest_docs():
-    loader = ReadTheDocsLoader("langchain-docs/api.python.langchain.com/en/latest")
+    #loader = ReadTheDocsLoader("langchain-docs/api.python.langchain.com/en/latest")
+    # Load the notion content located in the notion_content folder
+    loader = NotionDirectoryLoader("notion_content")
 
     raw_documents = loader.load()
     print(f"loaded {len(raw_documents)} documents")
